@@ -1,7 +1,7 @@
 """Test your functions from Week 2 assignment.
 """
 import preclass_assignment.functions as fxn
-
+import pytest 
 
 def test_greet(capsys):
     """Check that the greet function prints as expected"""
@@ -18,10 +18,17 @@ def test_greet(capsys):
 def test_goldilocks(capsys):
     """Check goldilocks returns expected output"""
     # given
-    # when
+    fxn.goldilocks(135)
+    captured = capsys.readouterr() # Basically capsys is built-in pytest tool that sapture the printed output with capsys
     # then
-    assert False  # TODO! Update the contents of this function so it correctly tests goldilocks
-
+    assert captured.out == "Too small!\n"
+    
+    # given
+    fxn.goldilocks(155)
+    captured = capsys.readouterr()
+    # then
+    assert captured.out == "Too large!\n"
+    
 
 def test_square_list():
     """Check square_list returns expected output"""
@@ -48,6 +55,10 @@ def test_fibonacci_stop():
 def test_clean_pitch():
     """Check clean_pitch works as expected."""
     # given
+    inp = [95, 45, -5]
+    status = [True, False, True]
+    exp_out = [-999, 45, -999]
     # when
+    out = fxn.clean_pitch(inp, status)
     # then
-    assert False  # TODO! Update the contents of this function so it correctly tests clean_pitch
+    assert exp_out == out
